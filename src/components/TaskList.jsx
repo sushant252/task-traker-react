@@ -1,6 +1,6 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {completeTask} from '../features/task/TaskSlice';
+import {completeTask, toggleTask, deleteTask} from '../features/task/TaskSlice';
 function TaskList() {
     let {items} = useSelector((state) => state.task)
     const dispatch = useDispatch()
@@ -10,9 +10,12 @@ function TaskList() {
         dispatch(completeTask(id)) 
 
     }
-    function doUndoTask(id) {
-        dispatch(undoTask(id)) 
-     
+    function doToggle(id) {
+        dispatch(toggleTask(id)) 
+    }
+    function doDelete(id) {
+        dispatch(deleteTask(id))
+        
     }
     return(
         <Container>
@@ -28,9 +31,9 @@ function TaskList() {
                                 </div>
                                 <div className="ms-auto p-2">
                                     {!item.completed && <Button variant = "success" onClick={()=> doCompleteTask(item.id)}>Completed</Button>}
-                                    {item.completed && <Button variant = "success" onClick={()=> doUndoTask(item.id)}>Undo</Button>}
+                                    {item.completed && <Button variant = "success" onClick={()=> doToggle(item.id)}>Undo</Button>}
                                    
-                                    <Button variant="danger" className="ms-2">Delete</Button>
+                                    <Button variant="danger" className="ms-2" onClick={() => doDelete(item.id)}>Delete</Button>
                                 </div>
                             </div>
                         )

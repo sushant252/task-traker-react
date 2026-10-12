@@ -14,22 +14,23 @@ const taskSlice = createSlice({
             }
             state.items.push(data)
         },
-        deleteTask:{},
         completeTask:(state, action) => {
             let item = state.items.find((item) => item.id === action.payload)
             if(item) {
                 item.completed = true
             }
         },
-        undoTask: (state, action) => {
+        toggleTask:(state, action) => {
             let item = state.items.find((item) => item.id === action.payload)
             if(item) {
                 item.completed = false
             }
         },
-        toggleTask:{},
+        deleteTask:(state, action) => {
+            state.items = state.items.filter((item) => item.id !== action.payload)
+        },
 
-    }
+    } 
 })
 export const {addTask, deleteTask, toggleTask, completeTask } = taskSlice.actions
 export default taskSlice.reducer
